@@ -23,6 +23,7 @@
             , lineOpacity: 1
 			, allowDrag: true
             , allowMenu: true
+            , allowContext: true
 			, backgroundColor: '#f8f8f8'
 			, foregroundColor: '#000'
 			, fontSize: 13

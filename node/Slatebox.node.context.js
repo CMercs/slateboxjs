@@ -11,7 +11,7 @@
         }, 500);
 
         _self.init = function () {
-            if (_self._.text.node) {
+            if (_self._.text.node && _self._.options.allowContext) {
                 _self._.text.node.oncontextmenu = _self._.vect.node.oncontextmenu = function (e) {
                     _priorAllowDrag = _self._.options.allowDrag;
                     _self._.options.allowDrag = false;

@@ -29,6 +29,7 @@
             }
             , enabled: true
             , showBirdsEye: true
+            , sizeOfBirdsEye: 200
             , showMultiSelect: true
             , showZoom: true
             , showStatus: true
@@ -37,7 +38,14 @@
                 , showPanel: true
                 , panelContainer: null
                 , useLongPolling: false
+                , jsonp: false
                 , localizedOnly: false
+                , userName: ''
+                , userProfile: ''
+                , userIP: ''
+                , sizeOfBirdsEye: 200
+                , hubName: 'slateHub'
+                , url: ''
                 , callbacks: {
                     onCollaboration: null
                     , onCollaborationStarted: null
@@ -384,21 +392,7 @@
             _changed = chg;
         };
 
-        _slate.init = function (_options) {
-
-            var options = {
-                userName: ''
-                , userProfile: ''
-                , userIP: ''
-                , sizeOfBirdsEye: 200
-                , collaboration: {
-
-                }
-                , hubName: 'slateHub'
-                , url: ''
-            };
-
-            $s.extend(options, _options);
+        _slate.init = function () {
 
             //show zoom slider
             if (_slate.options.showZoom) {
@@ -412,7 +406,7 @@
                     _slate.birdseye.reload(_slate.exportJSON());
                 } else {
                     _slate.birdseye.show({
-                        size: options.sizeOfBirdsEye || 200
+                        size: _slate.options.sizeOfBirdsEye || 200
                         , onHandleMove: function (left, top) {
                         }
                     });
@@ -423,11 +417,11 @@
             if (_slate.options.collaboration && _slate.options.collaboration.allow) {
                 //init collaboration
                 _slate.signalr.init({
-                    un: options.userName
-                    , up: options.userProfile
-                    , ip: options.userIP
-                    , hubName: options.hubName
-                    , url: options.url
+                    un: _slate.options.collaboration.userName
+                    , up: _slate.options.collaboration.userProfile
+                    , ip: _slate.options.collaboration.userIP
+                    , hubName: _slate.options.collaboration.hubName
+                    , url: _slate.options.collaboration.url || ''
                     , callbacks: {
                         onCollaborationWired: _slate.options.collaboration.callbacks.onCollaborationWired
                         , onCollaborationStarted: _slate.options.collaboration.callbacks.onCollaborationStarted
